@@ -1,0 +1,83 @@
+{
+  "project_context": {
+    "domain": "Logistics, B2B Operations, Data-Heavy",
+    "theme": "dark",
+    "archetype": "2 - Performance Pro / Tactical Command Center",
+    "description": "A dark store logistics command center for managers to monitor agentic operations. Mobile-first responsive web app acting as a dashboard."
+  },
+  "colors": {
+    "background": "#0A0A0A",
+    "surface": "#121212",
+    "surface_glass": "rgba(18, 18, 18, 0.8)",
+    "primary_accent": "#007AFF",
+    "secondary_accent": "#FF3B30",
+    "success": "#34C759",
+    "warning": "#FFCC00",
+    "border": "#27272A",
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B"
+    }
+  },
+  "typography": {
+    "heading_font": "Chivo",
+    "body_font": "IBM Plex Sans",
+    "mono_font": "IBM Plex Mono",
+    "hierarchy": {
+      "h1": "text-3xl sm:text-4xl tracking-tight font-black",
+      "h2": "text-2xl sm:text-3xl tracking-tight font-bold",
+      "h3": "text-xl sm:text-2xl tracking-tight font-bold",
+      "body": "text-base sm:text-sm leading-relaxed",
+      "mono_label": "text-xs tracking-[0.1em] uppercase font-mono"
+    }
+  },
+  "layout": {
+    "strategy": "Mobile-First 'Control Room' Grid",
+    "spacing": "Dense and compact. p-4 for mobile, p-6 for tablet.",
+    "navigation": "Bottom Tab Bar for mobile view (fixed bottom z-50), Sidebar/TopNav for tablet views.",
+    "container": "w-full max-w-screen-2xl mx-auto min-h-screen flex flex-col md:flex-row bg-[#0A0A0A] text-white overflow-x-hidden"
+  },
+  "surface_styles": {
+    "cards": "bg-[#121212] border border-[#27272A] rounded-lg shadow-sm hover:border-[#52525B] transition-colors",
+    "glass": "backdrop-blur-xl bg-black/80 border-t border-[#27272A] (for bottom nav)",
+    "technical_grid": "border-collapse border-r border-b border-[#27272A] (for Heatmap)"
+  },
+  "components": {
+    "LiveFeed": "Streaming log list. Use `IBM Plex Mono` for timestamps. Expandable Accordion (Shadcn) to show Agent Reasoning Details. Left border color-coded by agent type (e.g. Blue for Dispatch, Green for Inventory).",
+    "ChaosMeter": "Circular gauge (SVG or customized chart) showing 0-100% stress. Color transitions from Green (0-50) -> Yellow (51-80) -> Red (81-100). Include large mono metric in the center.",
+    "StockHeatmap": "Dense CSS Grid. Each cell is a product. Colors: Red (Low/Empty), Green (Optimal), Yellow (Restocking). Hover/Tap reveals product details.",
+    "StressTestPanel": "Control area with a prominent action button. Use 'Tracing Beam' or intense glow effect for the 'Simulate 50+ Orders' button. Should look dangerous/powerful (Electric Blaze/Red border).",
+    "Tabs": "Use Shadcn Tabs for switching views, styled to look like an app's bottom navigation bar on small screens."
+  },
+  "motion_and_interactions": {
+    "hover_states": "Cards lift slightly (-translate-y-1) and borders brighten.",
+    "feed_animation": "New items slide in from the top.",
+    "stress_test_active": "Screen pulses slightly with a red tint when Stress Test is running.",
+    "reduced_motion": "Respect prefers-reduced-motion for the pulsing."
+  },
+  "media": {
+    "images": [
+      {
+        "category": "manager_avatar",
+        "url": "https://images.unsplash.com/photo-1626639900752-3ea9001925ae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxtYW5hZ2VyJTIwcG9ydHJhaXQlMjBwcm9maWxlfGVufDB8fHx8MTc3NjIzMDAxNnww&ixlib=rb-4.1.0&q=85",
+        "description": "Manager demo account avatar for top header profile."
+      },
+      {
+        "category": "background_texture",
+        "url": "https://images.unsplash.com/photo-1669003154314-71bfb4192338?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwyfHx3YXJlaG91c2UlMjBsb2dpc3RpY3MlMjBhZXJpYWx8ZW58MHx8fHwxNzc2MjMwMDE2fDA&ixlib=rb-4.1.0&q=85",
+        "description": "Dark, moody aerial warehouse logistics background for login screen. Ensure to use dark overlay bg-black/80 over it."
+      }
+    ]
+  },
+  "icons_library": "@phosphor-icons/react",
+  "instructions_to_main_agent": [
+    "Install required fonts: Chivo, IBM Plex Sans, IBM Plex Mono from Google Fonts.",
+    "Install Phosphor Icons: yarn add @phosphor-icons/react",
+    "Build a mobile-first responsive layout. Since the prompt specifies 'Expo React Native mobile app' but the stack is React/Tailwind, design it as a mobile-optimized web app (PWA style) with a bottom navigation bar for mobile sizes.",
+    "Ensure all components use the dark theme (Archetype 2: Performance Pro). Strict dark backgrounds, 1px solid borders, neon accents for interactive elements.",
+    "Implement the Chaos Meter using Recharts or custom SVG. Use text-shadow to make active metrics glow.",
+    "Include data-testid on all buttons, tabs, and interactive feed items.",
+    "Avoid using Shadcn Card component heavily; prefer flat, dense, technical grid layouts using native HTML divs with Tailwind borders."
+  ]
+}
