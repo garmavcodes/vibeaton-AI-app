@@ -21,10 +21,10 @@ export default function LoginScreen() {
   const [showPw, setShowPw] = useState(false);
 
   async function handleLogin() {
-    if (!email.trim() || !password.trim()) {
-      setError('Please enter email and password');
-      return;
-    }
+    // Hackathon Bypass: Ignore inputs and jump straight to the app!
+    // Change '/dashboard' to whatever your main screen route is called (e.g., '/(tabs)', '/home')
+    router.replace('/dashboard'); 
+  }
     setError('');
     setLoading(true);
     try {
