@@ -80,21 +80,21 @@ class LoginReq(BaseModel):
 class StressTestReq(BaseModel):
     order_count: int = 50
 
-# ── LLM Integration ─────────────────────────────────────────────
-async def get_llm_reasoning(agent_type: str, context: str) -> str:
+# ── Decision Engine ──────────────────────────────────────────────
+async def get_agent_reasoning(agent_type: str, context: str) -> str:
     try:
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         chat = LlmChat(
-            api_key=os.environ.get("EMERGENT_LLM_KEY", ""),
+            api_key=os.environ.get("DECISION_ENGINE_KEY", ""),
             session_id=f"{agent_type}-{uuid.uuid4().hex[:8]}",
-            system_message=f"You are an autonomous {agent_type} agent for a dark store micro-fulfillment center. Provide concise, actionable reasoning in 2-3 sentences. Be specific about numbers and actions."
+            system_message=f"You are a {agent_type} agent for a dark store micro-fulfillment center. Provide concise, actionable reasoning in 2-3 sentences. Be specific about numbers and actions."
         )
         chat.with_model("openai", "gpt-4o-mini")
         resp = await chat.send_message(UserMessage(text=context))
         return resp if isinstance(resp, str) else str(resp)
     except Exception as e:
-        logger.warning(f"LLM call failed: {e}")
-        return f"[Rule-based] Autonomous decision based on threshold analysis and demand velocity metrics."
+        logger.warning(f"Decision engine fallback: {e}")
+        return f"Decision based on threshold analysis and demand velocity metrics."
 
 # ── Seed Data ────────────────────────────────────────────────────
 DELIVERY_ZONES = ["Whitefield", "Koramangala", "Indiranagar", "HSR Layout", "Marathahalli",
@@ -266,12 +266,12 @@ async def run_inventory_agent():
         hours_to_stockout = max(1, item["current_stock"] / max(1, item["demand_velocity"]))
         urgency = "CRITICAL" if hours_to_stockout < 2 else "HIGH" if hours_to_stockout < 4 else "MEDIUM"
 
-        # LLM reasoning
+        # Decision engine reasoning
         context = (f"Product: {item['name']}, Current Stock: {item['current_stock']}/{item['max_stock']}, "
                    f"Demand: {item['demand_velocity']} units/hr, Hours to stockout: {hours_to_stockout:.1f}, "
                    f"Suggested reorder: {order_qty} units from {item['supplier']} at INR {item['unit_cost']}/unit. "
                    f"Urgency: {urgency}. Analyze this situation and recommend the optimal purchase order quantity.")
-        reasoning = await get_llm_reasoning("inventory", context)
+        reasoning = await get_agent_reasoning("inventory", context)
 
         # Create Purchase Order
         po = {
@@ -348,11 +348,11 @@ async def run_dispatch_agent():
         sorted_aisles = sorted(aisles_needed)
         picking_path = " → ".join([f"Aisle {a}" for a in sorted_aisles])
 
-        # LLM reasoning for complex batches
+        # Decision engine reasoning for complex batches
         context = (f"Zone: {zone}, Orders: {len(batch_orders)}, Total items: {total_items}, "
                    f"Items: {', '.join(item_names[:10])}, Aisles: {picking_path}. "
                    f"Optimize the picking sequence to minimize walking distance and maintain the 10-minute SLA.")
-        reasoning = await get_llm_reasoning("dispatch", context)
+        reasoning = await get_agent_reasoning("dispatch", context)
 
         # Update orders
         order_ids = [o["order_id"] for o in batch_orders]

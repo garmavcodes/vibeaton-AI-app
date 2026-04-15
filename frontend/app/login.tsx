@@ -49,7 +49,7 @@ export default function LoginScreen() {
           </View>
           <Text style={styles.title}>DarkStore</Text>
           <Text style={styles.subtitle}>Command Center</Text>
-          <Text style={styles.tagline}>Autonomous Logistics Intelligence</Text>
+          <Text style={styles.tagline}>Real-Time Logistics Operations</Text>
         </View>
 
         <View style={styles.form}>

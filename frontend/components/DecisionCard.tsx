@@ -72,7 +72,7 @@ export default function DecisionCard({ decision }: Props) {
 
           {decision.reasoning ? (
             <>
-              <Text style={[styles.detailLabel, { marginTop: 12 }]}>AI ANALYSIS</Text>
+              <Text style={[styles.detailLabel, { marginTop: 12 }]}>DETAILED ANALYSIS</Text>
               <Text style={styles.reasoning}>{decision.reasoning}</Text>
             </>
           ) : null}

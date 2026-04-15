@@ -61,7 +61,7 @@ export default function StressScreen() {
         <Ionicons name="flash" size={28} color={COLORS.danger} />
         <Text style={styles.title}>Stress Test Engine</Text>
         <Text style={styles.desc}>
-          Simulate high-volume order floods to validate the agentic backend's autonomous decision-making under pressure
+          Simulate high-volume order floods to validate the backend's decision-making under pressure
         </Text>
       </View>
 

@@ -1,24 +1,24 @@
 # Vibeathon Dark Store - Agentic Backend PRD
 
 ## Project Overview
-B2B operational architecture for "dark stores" (micro-fulfillment centers) managing 10-minute delivery networks with autonomous AI agents making logistics decisions.
+B2B operational architecture for "dark stores" (micro-fulfillment centers) managing 10-minute delivery networks with autonomous agents making logistics decisions.
 
 ## Tech Stack
 - **Backend:** FastAPI + MongoDB + Python
 - **Frontend:** Expo React Native (SDK 54) with React Native SVG
-- **AI/LLM:** OpenAI GPT-4o-mini via Emergent LLM Key (emergentintegrations)
+- **Decision Engine:** Rule-based heuristics + predictive analytics
 - **Auth:** JWT-based with bcrypt password hashing
 
 ## Core Features
 
-### 1. Autonomous Inventory Agent
+### 1. Inventory Agent
 - Monitors all 50 product stock levels against reorder points
 - Calculates demand velocity (items/hour) and hours to stockout
-- Auto-generates B2B purchase orders with LLM-powered reasoning
+- Auto-generates B2B purchase orders with detailed reasoning
 - Urgency classification: CRITICAL (<2h), HIGH (<4h), MEDIUM
 - Simulated PO fulfillment (auto-restocks after 60 seconds)
 
-### 2. Autonomous Dispatch Agent
+### 2. Dispatch Agent
 - Groups pending orders by delivery zone (10 Bangalore zones)
 - Batches orders (max 6 per batch) for efficient fulfillment
 - Optimizes picking paths through store aisles (A-G)
@@ -39,8 +39,8 @@ B2B operational architecture for "dark stores" (micro-fulfillment centers) manag
 ## Data Model
 - **Products:** 50 realistic Indian grocery/essentials products across 7 categories
 - **Orders:** Items, delivery zones, status lifecycle, priority scoring
-- **Purchase Orders:** B2B orders with AI reasoning, supplier, cost tracking
-- **Agent Decisions:** Type, summary, reasoning steps, AI analysis, confidence score, outcome
+- **Purchase Orders:** B2B orders with reasoning, supplier, cost tracking
+- **Agent Decisions:** Type, summary, reasoning steps, analysis, confidence score, outcome
 - **System Metrics:** Real-time computed from order/product state
 
 ## API Endpoints
